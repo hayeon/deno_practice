@@ -1,4 +1,4 @@
-import { Application, Router } from "https://deno.land/x/oak@v7.7.0/mod.ts" ; // 어플리케이션 임포트 
+import { Application, Context, Router } from "https://deno.land/x/oak@v7.7.0/mod.ts" ; // 어플리케이션 임포트 
 
 const app = new Application();
 
@@ -30,7 +30,15 @@ let books = [
     }
 ]
 router.get("/", (context) => {
-    //context.respond.body = "hello world"
-});
+    context.response.body = "hello world";
+}) //; 없이 바로 .get으로 연결
+    .get("/books", (context) => {
+        context.response.body = books;
+    });
+//또 라우터 안 쓰고 .get으로 바로 연결 가능
+//.post("/book", (context) => ) {
+  //  context.response.body
+//}
+
 console.log('server is listening on port 5000');
 await app.listen({ port : 5000}); // promise return해서 await 해야함 탑 레벨 지원
